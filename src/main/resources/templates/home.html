@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CookGenie - Home</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <h1>🍳 CookGenie</h1>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="search-container">
+        <h2>What do you want to cook today?</h2>
+        <form th:action="@{/home}" method="get">
+            <input type="text" name="query" placeholder="Search recipes... (e.g. chicken)" th:value="${query}" />
+            <button type="submit">🔍 Search</button>
+        </form>
+    </div>
+
+    <div class="results-container">
+        <div th:if="${noResults}">
+            <p class="no-results">No recipes found! Try another search.</p>
+        </div>
+        <div th:if="${error}">
+            <p class="no-results" th:text="${error}"></p>
+        </div>
+        <div id="results" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px;">
+            <div th:each="meal : ${meals}" class="recipe-card">
+                <img th:src="${meal.image}" th:alt="${meal.name}" />
+                <h3 th:text="${meal.name}"></h3>
+                <p th:text="${meal.category} + ' | ' + ${meal.area}"></p>
+                <a th:if="${meal.youtube != null and meal.youtube != ''}" th:href="${meal.youtube}" target="_blank">▶
+                    Watch on YouTube</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
