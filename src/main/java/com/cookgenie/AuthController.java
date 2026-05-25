@@ -13,7 +13,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage() {
-        return "Login";
+        return "login";
     }
 
     @GetMapping("/register")
