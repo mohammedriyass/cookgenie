@@ -50,4 +50,42 @@ public class HomeController {
         }
         return "home";
     }
+
+    @GetMapping("/ingredients")
+    public String searchByIngredients(@RequestParam(required = false) String ingredients, Model model) {
+        if (ingredients != null && !ingredients.isEmpty()) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                String url = "https://www.themealdb.com/api/json/v1/1/filter.php?i=" + ingredients;
+                System.out.println("Ingredients URL: " + url);
+                String response = restTemplate.getForObject(url, String.class);
+
+                ObjectMapper mapper = new ObjectMapper();
+                JsonNode root = mapper.readTree(response);
+                JsonNode mealsNode = root.get("meals");
+
+                if (mealsNode != null && mealsNode.isArray()) {
+                    List<Map<String, String>> meals = new ArrayList<>();
+                    for (JsonNode meal : mealsNode) {
+                        Map<String, String> m = new HashMap<>();
+                        m.put("name", meal.get("strMeal").asText());
+                        m.put("image", meal.get("strMealThumb").asText());
+                        m.put("category", "");
+                        m.put("area", "");
+                        m.put("youtube", "");
+                        meals.add(m);
+                    }
+                    model.addAttribute("meals", meals);
+                } else {
+                    model.addAttribute("noResults", true);
+                }
+            } catch (Exception e) {
+                model.addAttribute("error", "Something went wrong!");
+            }
+            model.addAttribute("ingredients", ingredients);
+
+        }
+        return "home";
+
+    }
 }
