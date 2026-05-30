@@ -2,21 +2,21 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'poppins', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 body {
     background: linear-gradient(135deg, #f5a623, #f76b1c);
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
 }
 
 .container {
-    width: 100%;
+
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 100vh;
 }
 
 .auth-box {
@@ -35,9 +35,8 @@ body {
 }
 
 .auth-box h2 {
-    font-size: 1rem;
     color: #f5a623;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .auth-box input {
@@ -48,6 +47,10 @@ body {
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
+}
+
+.auth-box input:focus {
+    border-color: #f76b1c;
 }
 
 .auth-box button {
@@ -93,12 +96,14 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
     color: white;
 }
 
 .navbar h1 {
     color: white;
-    margin: 0;
+    font-size: 1.8rem;
+
 }
 
 .navbar button {
@@ -108,18 +113,32 @@ body {
     padding: 8px 16px;
     border-radius: 8px;
     cursor: pointer;
-    width: auto;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 .search-container {
     text-align: center;
-    padding: 40px 20px;
+    padding: 40px 20px 20px;
+    ;
+}
+
+.search-container h2 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.search-container form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 .search-container input {
-    padding: 12px;
+    padding: 12px 20px;
     width: 400px;
-    border: 2px solid #f76b1c;
+    border: none;
     border-radius: 8px;
     font-size: 1rem;
     outline: none;
@@ -127,13 +146,13 @@ body {
 
 .search-container button {
     padding: 12px 20px;
-    background: #f76b1c;
-    color: white;
+    background: white;
+    color: #f76b1c;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    width: auto;
+    font-weight: bold;
 }
 
 .results-container {
@@ -145,6 +164,7 @@ body {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
+    padding: 20px;
 }
 
 .recipe-card {
@@ -155,6 +175,11 @@ body {
     overflow: hidden;
     text-align: center;
     padding-bottom: 16px;
+    transition: transform 0.2s;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
 }
 
 .recipe-card img {
@@ -180,10 +205,12 @@ body {
     color: #f76b1c;
     text-decoration: none;
     font-weight: bold;
+    font-size: 0.85rem;
 }
 
 .no-results {
     text-align: center;
     color: #888;
     font-size: 1.2rem;
+    padding: 40px;
 }
