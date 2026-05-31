@@ -114,7 +114,8 @@ http://localhost:8080
 - Save your favorite recipes
 - Remove recipes from favorites
 
-  <img width="1361" height="635" alt="image" src="https://github.com/user-attachments/assets/9bd6ae03-4e10-413b-822a-dfebff1bd516" />
+  <img width="1362" height="639" alt="image" src="https://github.com/user-attachments/assets/29c09c6a-5d45-4f59-8d04-e0f7506d15b3" />
+
 
 
 ## 🔗 API Used
