@@ -4,52 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <title>CookGenie - My Favorites</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     <div class="navbar">
         <h1>🍳 CookGenie</h1>
-        <div style="display:flex; gap:10px;">
-            <a th:href="@{/home}" style=" background-color: white;
-                 color:#f76b1c; 
-                 padding: 8px 20px;
-                 border-radius: 8px;
-                text-decoration: none;
-                font-weight: bold;">🏠 Home</a>
-            <a th:href="@{/favorites}"
-                style="background:white; color:#f76b1c; padding:8px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">❤️
-                My Favorites</a>
+        <div style="display:flex; gap:10px; align-items:center;">
+            <a th:href="@{/home}"
+                style="background:white; color:#f76b1c; padding:8px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">🏠
+                Home</a>
             <form th:action="@{/logout}" method="post">
                 <button type="submit">Logout</button>
             </form>
         </div>
+    </div>
 
-        <div class="search-container">
-            <h2>❤️ My Favorites</h2>
+    <div class="search-container">
+        <h2>❤️ My Favorites</h2>
+    </div>
+
+    <div class="results-container">
+        <div th:if="${#lists.isEmpty(favorites)}">
+            <p class="no-results">No favorites yet! Go search some recipes 🍳</p>
         </div>
-
-        <div class="results-container">
-            <div th:if="${#lists.isEmpty(favorites)}">
-                <p class="no-results">You have no favorite recipes yet! Start adding some from the home page.</p>
+        <div id="results">
+            <div th:each="fav : ${favorites}" class="recipe-card">
+                <img th:src="${fav.mealImage}" th:alt="${fav.mealName}" />
+                <h3 th:text="${fav.mealName}"></h3>
+                <a th:if="${fav.mealYoutube != null and fav.mealYoutube != ''}" th:href="${fav.mealYoutube}"
+                    target="_blank">▶ Watch on YouTube</a>
+                <form th:action="@{/favorites/remove}" method="post" style="margin-top:8px;">
+                    <input type="hidden" name="id" th:value="${fav.id}" />
+                    <button type="submit"
+                        style="background:#d00; color:white; border:none; padding:6px 14px; border-radius:6px; cursor:pointer; margin-bottom:10px;">🗑️
+                        Remove</button>
+                </form>
             </div>
-            <div id="results" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center; padding:20px;">
-                <div th:each="fav : ${favorites}" class="recipe-card">
-                    <img th:src="${fav.mealImage}" th:alt="${fav.mealName}" />
-                    <h3 th:text="${fav.mealName}"></h3>
-                    <a th:if="${fav.mealYoutube != null and fav.mealYoutube != ''}" th:href="${fav.mealYoutube}"
-                        target="_blank">▶ Watch on YouTube</a>
-                    <form th:action="@{/favorites/remove}" method="post" style="margin-top:8px;">
-                        <input type="hidden" name="id" th:value="${fav.id}" />
-                        <button type="submit"
-                            style="background:#d00; color:white; border:none; padding:6px 14px; border-radius:6px; cursor:pointer;">🗑️
-                            Remove</button>
-                    </form>
-                </div>
-            </div>
-
         </div>
-
+    </div>
 </body>
 
 </html>
