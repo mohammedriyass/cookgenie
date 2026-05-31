@@ -11,6 +11,9 @@
     <div class="navbar">
         <h1>🍳 CookGenie</h1>
         <form th:action="@{/logout}" method="post">
+            <a th:href="@{/favorites}"
+                style="background:white; color:#f76b1c; padding:8px 20px; border-radius:8px; text-decoration:none; font-weight:bold;">❤️
+                My Favorites</a>
             <button type="submit">Logout</button>
         </form>
     </div>
@@ -43,6 +46,14 @@
                 <p th:text="${meal.category} + ' | ' + ${meal.area}"></p>
                 <a th:if="${meal.youtube != null and meal.youtube != ''}" th:href="${meal.youtube}" target="_blank">▶
                     Watch on YouTube</a>
+                <form th:action="@{/favorites/add}" method="post" style="margin-top:8px;">
+                    <input type="hidden" name="mealName" th:value="${meal.name}" />
+                    <input type="hidden" name="mealImage" th:value="${meal.image}" />
+                    <input type="hidden" name="mealYoutube" th:value="${meal.youtube}" />
+                    <button type="submit"
+                        style="background:#f76b1c; color:white; border:none; padding:6px 14px; border-radius:6px; cursor:pointer;">❤️
+                        Save</button>
+                </form>
             </div>
         </div>
     </div>
